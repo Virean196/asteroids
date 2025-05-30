@@ -33,9 +33,17 @@ def main():
             if asteroid.collision_check(player):
                 print("Game Over!")
                 sys.exit()
+            for shot in shots:
+                if asteroid.collision_check(shot):
+                    asteroid.kill()
+                    if asteroid.radius <= ASTEROID_MIN_RADIUS:
+                        pass
+                    else:
+                        asteroid.split()
+                    shot.kill()
         for sprite in drawable:
             sprite.draw(screen)
-            
+
         pygame.display.flip()
         clock.tick(60)
         dt = clock.tick(60)/1000
